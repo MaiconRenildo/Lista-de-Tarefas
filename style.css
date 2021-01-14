@@ -217,7 +217,7 @@ footer{
 @media(max-width:480px){
   #subInput{
     display: grid;
-    grid-template-columns: 30% 30% 40%;
+    grid-template-columns: 30% 25% 45%;
   }
   #data,
   #hora{
