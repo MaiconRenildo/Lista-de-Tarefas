@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lista de Tarefas</title>
+  <link rel="stylesheet" type="text/css" href="./style.css" >
+  <script defer src="https://use.fontawesome.com/releases/v5.15.1/js/all.js" integrity="sha384-9/D4ECZvKMVEJ9Bhr3ZnUAF+Ahlagp1cyPC7h5yDlZdXs4DQ/vRftzfd+2uFUuqS" crossorigin="anonymous"></script>
+  
+</head>
+<body>
+  <main>
+    <div id="Container">
+      <header>
+        <h1>Lista de Tarefas</h1>
+      </header>
+      <div id="Secundaria">
+        <div id="inputs">
+          <div id="inputsPrincipal">
+            <input type="text" id="EntradaTexto" placeholder="Digite a tarefa">
+            <figure id='figuraMicro' >
+              <i class="fas fa-microphone" id='micro'></i>
+            </figure>
+          </div>
+          
+          <div id="subInput">
+            <input type="date"  id='data' placeholder="Data">
+            <input type="time"  id="hora" placeholder="hora">
+            <input type="button" value="Adicionar" id="botao">
+          </div>
+        </div>
+        <ul id="lista" class="lista">
+        </ul>
+        <div id="alerta"></div>
+      </div>
+    </div>
+  </main>
+    
+  <footer>
+    <p> &copy;Copyright - Maicon Renildo</p> 
+    <div id="contato">
+      <a href="https://web.facebook.com/maicon.renildo?_rdc=1&_rdr" target="_blank" >Facebook</a> <a href="https://github.com/MaiconRenildo" target="_blank" >Github</a> <a href="https://www.linkedin.com/in/maicon-renildo-713a36181/?originalSubdomain=br" target="_blank">Linkedin</a>
+    </div>
+  </footer> 
+    
+  <script src="./script.js"></script>
+</body>
+</html>
