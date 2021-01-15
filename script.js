@@ -1,12 +1,63 @@
 let lista=document.getElementById('lista')
 let alerta=document.getElementById('alerta')
 let btn=document.getElementById('botao')
+let btn_gravacao=document.getElementById('figuraMicro')
+let transcricao_audio=''
+let esta_gravando=false
 
 //Se tiver o elemento 'tarefas' no localStorage ele será convertido de json para objeto e salvo em tarefas, caso contrario tarefas será um array vazio
 let tarefas=JSON.parse(localStorage.getItem('tarefas'))||[]
 
 Focar()
 RenderizarTarefa()
+
+//Reconhecimento de voz
+//verifica se o navegador tem suporte ao uso da bibliotecas da api da api
+if(window.SpeechRecognition || window.webkitSpeechRecognition){
+  let speech_api=window.SpeechRecognition || window.webkitSpeechRecognition
+  let recebe_audio=new speech_api()
+
+  recebe_audio.continuous=true
+  recebe_audio.lang="pt-BR"
+
+  btn_gravacao.addEventListener('click',function(e){
+    if(esta_gravando){
+      recebe_audio.stop()
+      document.getElementById('micro').style.color='gray'
+    }else{
+      transcricao_audio=''
+      recebe_audio.start()
+      document.getElementById('micro').style.color='black'
+    }
+  },false)
+
+  recebe_audio.onstart=function(){
+    console.log('iniciou')
+    esta_gravando=true
+  }
+
+  //Executa depois que a fala é finalizada
+  recebe_audio.onend=function(){
+    esta_gravando=false
+    document.getElementById('micro').style.color='gray'
+    //btn_gravacao.innerHTML='Iniciar Gravação'
+  }
+  
+  //Imprime o resultado
+  recebe_audio.onresult=function(event){
+    for(let i=event.resultIndex;i<event.results.length;i++){
+      if(event.results[i].isFinal){
+        transcricao_audio+=event.results[i][0].transcript
+      }else{
+        transcricao_audio+=event.results[i][0].transcript
+      }
+      let resultado=transcricao_audio
+      document.getElementById('EntradaTexto').value=resultado
+    }
+  }
+}else{
+  console.log('O navegador não apresenta suporte a web speech api')
+}
 
 //Função Executada ao clicar em 'Adicionar'
 btn.onclick=()=>{
@@ -83,10 +134,7 @@ function RenderizarTarefa(){
       let divTextPrazo=document.createElement('div')
       divTextPrazo.setAttribute('class','divTextoPrazo')
 
-
       let botaoTarefa=document.createElement('button')
-      //botaoTarefa.setAttribute('type','button')
-      //botaoTarefa.setAttribute('value','X')
       botaoTarefa.innerHTML='X'
       botaoTarefa.setAttribute('class','botaoTarefa')
 
@@ -97,21 +145,11 @@ function RenderizarTarefa(){
       if(tarefas[i].check==true){
         check.checked=true
       }
-
-      //let divCheck=document.createElement('div')
-      //divCheck.setAttribute('class','divCheck')
-      //divCheck.appendChild(check)
-
       
       divTextPrazo.appendChild(paragrafoTexto)
-
       novaTarefa.appendChild(check)
       novaTarefa.appendChild(divTextPrazo)
-      novaTarefa.appendChild(botaoTarefa)
-      
-
-      //novaTarefa.appendChild(texto)
-      
+      novaTarefa.appendChild(botaoTarefa)      
       lista.appendChild(novaTarefa)
 
       //Função executada ao clicar em uma tarefa
@@ -171,7 +209,6 @@ function Formatar(a){
   }
 }
 
-
 function RetornarPrazoAtualizadoConformeData(data,hora){
   //Ontem
   let ontem=new Date(new Date().setDate(new Date().getDate() -1))
@@ -209,58 +246,4 @@ function RetornarPrazoAtualizadoConformeData(data,hora){
     resultado=resultado+`, ${hora}`     
   }
   return resultado
-}
-
-//Reconhecimento de voz
-///////////////////////////////////////////////////////////////
-let btn_gravacao=document.getElementById('figuraMicro')
-
-let transcricao_audio=''
-let esta_gravando=false
-
-//verifica se o navegador tem suporte ao uso da bibliotecas da api da api
-if(window.SpeechRecognition || window.webkitSpeechRecognition){
-  let speech_api=window.SpeechRecognition || window.webkitSpeechRecognition
-  let recebe_audio=new speech_api()
-
-  recebe_audio.continuous=true//false
-  recebe_audio.lang="pt-BR"
-
-  btn_gravacao.addEventListener('click',function(e){
-    if(esta_gravando){
-      recebe_audio.stop()
-      document.getElementById('micro').style.color='gray'
-    }else{
-      transcricao_audio=''
-      recebe_audio.start()
-      document.getElementById('micro').style.color='black'
-    }
-  },false)
-
-  recebe_audio.onstart=function(){
-    console.log('iniciou')
-    esta_gravando=true
-  }
-
-  //Executa depois que a fala é finalizada
-  recebe_audio.onend=function(){
-    esta_gravando=false
-    document.getElementById('micro').style.color='gray'
-    //btn_gravacao.innerHTML='Iniciar Gravação'
-  }
-  
-  //Imprime o resultado
-  recebe_audio.onresult=function(event){
-    for(let i=event.resultIndex;i<event.results.length;i++){
-      if(event.results[i].isFinal){
-        transcricao_audio+=event.results[i][0].transcript
-      }else{
-        transcricao_audio+=event.results[i][0].transcript
-      }
-      let resultado=transcricao_audio
-      document.getElementById('EntradaTexto').value=resultado
-    }
-  }
-}else{
-  console.log('O navegador não apresenta suporte a web speech api')
 }
