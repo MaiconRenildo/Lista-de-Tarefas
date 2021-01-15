@@ -224,31 +224,25 @@ if(window.SpeechRecognition || window.webkitSpeechRecognition){
   let recebe_audio=new speech_api()
 
   recebe_audio.continuous=true//false
-  recebe_audio.interimResults=true//false
   recebe_audio.lang="pt-BR"
 
-
-  btn_gravacao.addEventListener('click',function(e){
+  btn_gravacao.addEventListener('click',function(){
     if(esta_gravando){
       recebe_audio.stop()
       document.getElementById('micro').style.color='gray'
-     
     }else{
       transcricao_audio=''
       recebe_audio.start()
       document.getElementById('micro').style.color='black'
     }
-    
-  },false)
+  })
 
   recebe_audio.onstart=function(){
     console.log('iniciou')
     esta_gravando=true
-
-    //btn_gravacao.innerHTML='Gravando'
   }
 
-  //Depois que finaliza a fala executa
+  //Executa depois que a fala é finalizada
   recebe_audio.onend=function(){
     esta_gravando=false
     document.getElementById('micro').style.color='gray'
@@ -257,19 +251,15 @@ if(window.SpeechRecognition || window.webkitSpeechRecognition){
   
   //Imprime o resultado
   recebe_audio.onresult=function(event){
-    let interim_transcript=''
-
     for(let i=event.resultIndex;i<event.results.length;i++){
       if(event.results[i].isFinal){
         transcricao_audio+=event.results[i][0].transcript
       }else{
-        interim_transcript+=event.results[i][0].transcript
+        transcricao_audio+=event.results[i][0].transcript
       }
-      let resultado=transcricao_audio || interim_transcript
+      let resultado=transcricao_audio
       document.getElementById('EntradaTexto').value=resultado
-      
     }
-
   }
 }else{
   console.log('O navegador não apresenta suporte a web speech api')
