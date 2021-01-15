@@ -12,7 +12,7 @@ Focar()
 RenderizarTarefa()
 
 //Reconhecimento de voz
-//verifica se o navegador tem suporte ao uso da bibliotecas da api da api
+//verifica se o navegador tem suporte ao uso das bibliotecas da Web Speech API 
 if(window.SpeechRecognition || window.webkitSpeechRecognition){
   let speech_api=window.SpeechRecognition || window.webkitSpeechRecognition
   let recebe_audio=new speech_api()
