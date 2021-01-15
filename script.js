@@ -226,7 +226,7 @@ if(window.SpeechRecognition || window.webkitSpeechRecognition){
   recebe_audio.continuous=true//false
   recebe_audio.lang="pt-BR"
 
-  btn_gravacao.addEventListener('click',function(){
+  btn_gravacao.addEventListener('click',function(e){
     if(esta_gravando){
       recebe_audio.stop()
       document.getElementById('micro').style.color='gray'
@@ -235,7 +235,7 @@ if(window.SpeechRecognition || window.webkitSpeechRecognition){
       recebe_audio.start()
       document.getElementById('micro').style.color='black'
     }
-  })
+  },false)
 
   recebe_audio.onstart=function(){
     console.log('iniciou')
