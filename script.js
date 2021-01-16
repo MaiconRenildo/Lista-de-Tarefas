@@ -27,7 +27,7 @@ if(window.SpeechRecognition || window.webkitSpeechRecognition){
     }else{
       transcricao_audio=''
       recebe_audio.start()
-      document.getElementById('micro').style.color='black'
+      document.getElementById('micro').style.color='red'
     }
   },false)
 
@@ -40,7 +40,6 @@ if(window.SpeechRecognition || window.webkitSpeechRecognition){
   recebe_audio.onend=function(){
     esta_gravando=false
     document.getElementById('micro').style.color='gray'
-    //btn_gravacao.innerHTML='Iniciar Gravação'
   }
   
   //Imprime o resultado
