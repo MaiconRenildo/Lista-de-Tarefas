@@ -159,7 +159,11 @@ function RenderizarTarefa(){
       }
       //Função executada ao clicar em um checkbox
       check.onclick=function(){
-        tarefas[i].check=true
+        if(tarefas[i].check==false){
+          tarefas[i].check=true
+        }else{
+          tarefas[i].check=false;
+        }
         SalvarNoStorage()
         RenderizarTarefa()
       }
