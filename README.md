@@ -1,6 +1,5 @@
 # Lista de Tarefas
-
-<p>Lista de tarefas com opções de seleção de data, hora e transcrição de áudio. Link da página: https://maiconrenildo.github.io/Lista-de-Tarefas/<p>
+Lista de tarefas com opções de seleção de data, hora e transcrição de áudio. Link da página: https://maiconrenildo.github.io/Lista-de-Tarefas/
 
 ## Screenshots
 <div align="center" >
